@@ -38,14 +38,16 @@ function gulpHologram(opts) {
         );
     }
   }
-  // check Hologram command exist
-  try {
-    hologramExecutable = which(hologramExecutable);
-  } catch (err) {
-    throw new PluginError(PLUGIN_NAME,
-      "\nYou need to have Hologram installed in your PATH for this task to work.\n" +
-      "\nsudo gem install hologram\n"
-      );
+  else {
+    // check Hologram command exist
+    try {
+      hologramExecutable = which(hologramExecutable);
+    } catch (err) {
+      throw new PluginError(PLUGIN_NAME,
+        "\nYou need to have Hologram installed in your PATH for this task to work.\n" +
+        "\nsudo gem install hologram\n"
+        );
+    }
   }
 
   // Run hologram
@@ -77,7 +79,8 @@ function gulpHologram(opts) {
     if (opts.logging) {
       log("Running command:", hologramExecutable, args);
     }
-    var program = spawn(hologramExecutable, args);
+    // var program = spawn(hologramExecutable, args);
+    var program = spawn(hologramExecutable);
 
     // listen to stderr and emit errors if any
     var errBuffer = new Buffer(0);
